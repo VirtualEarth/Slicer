@@ -116,6 +116,13 @@ if(APPLE)
     endif()
   endif()
 
+  # Require minimum deployment target of 10.9. In 10.9 libc++ replaces libstdc++
+  # as the default runtime. Requiring this minimum ensures that all libraries
+  # use libc++.
+  if(CMAKE_OSX_DEPLOYMENT_TARGET VERSION_LESS 10.9)
+    message(FATAL_ERROR "CMAKE_OSX_DEPLOYMENT_TARGET must be 10.9 or greater.")
+  endif()
+
   if(NOT "${CMAKE_OSX_SYSROOT}" STREQUAL "")
     if(NOT EXISTS "${CMAKE_OSX_SYSROOT}")
       message(FATAL_ERROR "error: CMAKE_OSX_SYSROOT='${CMAKE_OSX_SYSROOT}' does not exist")
