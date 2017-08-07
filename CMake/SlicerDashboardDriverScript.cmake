@@ -28,7 +28,7 @@ set(expected_variables
   CTEST_MEMORYCHECK_COMMAND
   CTEST_SVN_COMMAND
   CTEST_GIT_COMMAND
-  QT_QMAKE_EXECUTABLE
+  CTEST_CONFIGURE_OPTIONS
   )
 
 # Update list of expected variables based on build options.
@@ -310,7 +310,10 @@ ${ADDITIONAL_CMAKECACHE_OPTION}
       #set_property(GLOBAL PROPERTY SubProject ${label})
       set_property(GLOBAL PROPERTY Label ${label})
 
-      ctest_configure(BUILD "${CTEST_BINARY_DIRECTORY}")
+      ctest_configure(
+        BUILD "${CTEST_BINARY_DIRECTORY}"
+        OPTIONS "${CTEST_CONFIGURE_OPTIONS}"
+        )
       ctest_read_custom_files("${CTEST_BINARY_DIRECTORY}")
       if(run_ctest_submit)
         ctest_submit(PARTS Configure)
